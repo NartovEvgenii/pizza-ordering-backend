@@ -1,0 +1,39 @@
+package com.pizza.domains;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "user_order")
+@Data
+public class UserOrder {
+
+    @Id
+    @Column(name = "id_order")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idOrder;
+
+    @Column(name = "full_price", unique = true, nullable = false)
+    private Double fullPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_order_State")
+    private OrderState orderState;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_address")
+    private Address address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user")
+    private MobUser mobUser;
+
+    @ManyToMany
+    @JoinTable(name = "order_has_pizza",
+            joinColumns = @JoinColumn(name = "id_order"),
+            inverseJoinColumns = @JoinColumn(name = "id_pizza"))
+    private List<Pizza> pizzas = new ArrayList<>();
+}
