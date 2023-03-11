@@ -28,6 +28,8 @@ public class Pizza {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @ManyToMany(mappedBy = "pizzas")
-    private List<UserOrder> userOrders = new ArrayList<>();
+    @OneToMany(mappedBy = "pizza")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+
 }

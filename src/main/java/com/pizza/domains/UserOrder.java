@@ -13,7 +13,8 @@ public class UserOrder {
 
     @Id
     @Column(name = "id_order")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "user_order_id_order_seq", sequenceName = "user_order_id_order_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_order_id_order_seq")
     private Long idOrder;
 
     @Column(name = "full_price", unique = true, nullable = false)
@@ -31,9 +32,6 @@ public class UserOrder {
     @JoinColumn(name = "fk_user")
     private MobUser mobUser;
 
-    @ManyToMany
-    @JoinTable(name = "order_has_pizza",
-            joinColumns = @JoinColumn(name = "id_order"),
-            inverseJoinColumns = @JoinColumn(name = "id_pizza"))
-    private List<Pizza> pizzas = new ArrayList<>();
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();;
 }
