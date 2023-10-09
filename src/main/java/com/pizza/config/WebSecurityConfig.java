@@ -2,6 +2,7 @@ package com.pizza.config;
 
 import com.pizza.utils.JwtAuthenticationEntryPoint;
 import com.pizza.utils.JwtRequestFilter;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,13 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/user","/pizza","/address").permitAll().
-                // all other requests need to be authenticated antMatchers("/swagger-ui", "/login", "/register")
-                        antMatchers("/ууууу").authenticated().and().
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .authorizeRequests()
+                    .antMatchers("/user/**","/pizza/**","/address/**","/swagger-ui/**").permitAll()
+                    .antMatchers("/ууууу").authenticated()
+                .and()
+                    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request

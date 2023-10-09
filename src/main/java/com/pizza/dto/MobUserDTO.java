@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
-
 @Data
-public class MobUserDTOResponse {
+public class MobUserDTO {
 
     private Long idUser;
 
@@ -16,11 +15,8 @@ public class MobUserDTOResponse {
 
     private String surname;
 
-    private String token;
     @JsonProperty("address")
     private AddressDTO addressDTO;
     @JsonProperty("addresses")
-    private List<AddressDTO> addressDTOSs;
-
-
+    private List<AddressDTO> addressDTOs;
 }

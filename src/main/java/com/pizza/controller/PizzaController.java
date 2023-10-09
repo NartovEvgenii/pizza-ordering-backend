@@ -2,6 +2,7 @@ package com.pizza.controller;
 
 import com.pizza.dto.PizzaDto;
 import com.pizza.service.PizzaService;
+import com.pizza.service.impl.PizzaServiceImpl;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -18,7 +19,7 @@ public class PizzaController {
     @Autowired
     private PizzaService pizzaService;
     @Autowired
-    ResourceLoader resourceLoader;
+    private ResourceLoader resourceLoader;
 
     @GetMapping
     public List<PizzaDto> getAllPizzas() {

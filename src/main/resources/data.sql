@@ -21,7 +21,7 @@ INSERT INTO address (id_address, title)
     SELECT nextval('address_id_address_seq'), concat(city.value,', ',street.value, ', ',house.*, ', ',apartment.*)
       from TB_CITY city
         left join TB_STREETS street on 1 = 1
-        left join generate_series(1,10) house on 1 = 1
-        left join generate_series(1,100) apartment on 1 = 1
+        left join generate_series(1,1) house on 1 = 1
+        left join generate_series(1,10) apartment on 1 = 1
 ON CONFLICT (id_address)
 DO NOTHING;
