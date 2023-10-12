@@ -14,8 +14,4 @@ public class AddressDTO {
 
     private String title;
 
-    public AddressDTO(Address generalAddress) {
-        idAddress = generalAddress.getIdAddress();
-        title = generalAddress.getTitle();
-    }
 }

@@ -1,11 +1,15 @@
+TRUNCATE pizza CASCADE;
+TRUNCATE address CASCADE;
+TRUNCATE order_state CASCADE;
+TRUNCATE payment_type CASCADE;
+
 INSERT INTO pizza (id_pizza, title, description, price, image_path) VALUES
             (1, 'Margarita', 'Medium | Cheese , onion, and tomato pure', 12, 'margarita.png'),
-            (2, 'Classic Pepporoni', 'Medium | Cheese, hungarian pepper, paneer, capsicum and onion', 10, 'classicPepporoni.png'),
+            (2, 'Classic Pepperoni', 'Medium | Cheese, hungarian pepper, paneer, capsicum and onion', 10, 'classicPepperoni.png'),
             (3, 'Chicken Supreme', 'Medium | Cheese , chicken, and  tomato pure', 11, 'chickenSupreme.png'),
-            (4, 'Vegeterian', 'Medium | Cheese , vegetables, and tomato pure', 7, 'vegeterian.png')
+            (4, 'Vegetarian', 'Medium | Cheese , vegetables, and tomato pure', 7, 'vegetarian.png')
 ON CONFLICT (id_pizza)
 DO NOTHING;
-
 
 WITH TB_CITY (value) AS (
 	SELECT 'Voronezh' union all
@@ -14,7 +18,7 @@ WITH TB_CITY (value) AS (
 	TB_STREETS (value) AS (
 	SELECT 'Glory Ave.' union all
 	SELECT 'per. Stalin' union all
-	SELECT 'Сthulhu street' union all
+	SELECT 'Cthulhu street' union all
 	SELECT 'Beelzebub boulevard'
 	)
 INSERT INTO address (id_address, title)
@@ -25,3 +29,14 @@ INSERT INTO address (id_address, title)
         left join generate_series(1,10) apartment on 1 = 1
 ON CONFLICT (id_address)
 DO NOTHING;
+
+INSERT INTO order_state (title, identifier) VALUES
+            ('Accepted', 'ACCEPTED'),
+            ('Awaiting payment', 'AWAITING_PAYMENT'),
+            ('Processed', 'PROCESSED'),
+            ('Ready', 'READY'),
+            ('Closed', 'CLOSED');
+
+INSERT INTO payment_type (title, identifier) VALUES
+            ('Bank', 'BANK'),
+            ('Cash', 'CASH');

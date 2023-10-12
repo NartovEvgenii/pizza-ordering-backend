@@ -2,10 +2,8 @@ package com.pizza.dto;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-
 @Data
-public class PizzaDto {
+public class PizzaDTO {
 
     private Long idPizza;
 

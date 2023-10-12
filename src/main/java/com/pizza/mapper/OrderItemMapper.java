@@ -1,8 +1,9 @@
 package com.pizza.mapper;
 
-import com.pizza.domains.Pizza;
-import com.pizza.dto.PizzaDTO;
+import com.pizza.domains.OrderItem;
+import com.pizza.dto.OrderItemDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -10,7 +11,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
-public interface PizzaMapper {
+public interface OrderItemMapper {
 
-    PizzaDTO mapPizzaToPizzaDTO(Pizza pizza);
+    @Mapping(source = "orderItem.pizza.idPizza", target = "idPizza")
+    OrderItemDTO mapOrderItemToDTO(OrderItem orderItem);
 }

@@ -17,12 +17,16 @@ public class UserOrder {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_order_id_order_seq")
     private Long idOrder;
 
-    @Column(name = "full_price", unique = true, nullable = false)
+    @Column(name = "full_price", nullable = false)
     private Double fullPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_order_State")
+    @JoinColumn(name = "fk_order_state")
     private OrderState orderState;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_payment_type")
+    private PaymentType paymentType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_address")
@@ -33,5 +37,5 @@ public class UserOrder {
     private MobUser mobUser;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();;
+    private List<OrderItem> orderItems = new ArrayList<>();
 }

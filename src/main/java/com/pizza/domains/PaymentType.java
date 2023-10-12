@@ -5,16 +5,15 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
-@Table(name = "order_state")
+@Table(name = "payment_type")
 @Data
-public class OrderState {
+public class PaymentType {
 
     @Id
-    @Column(name = "id_order_state")
+    @Column(name = "id_payment_type")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idOrderState;
+    private Long idPaymentType;
 
     @Column(name = "title", unique = true, nullable = false)
     private String title;
@@ -22,6 +21,6 @@ public class OrderState {
     @Column(name = "identifier", unique = true, nullable = false)
     private String identifier;
 
-    @OneToMany(mappedBy = "orderState")
+    @OneToMany(mappedBy = "paymentType")
     private List<UserOrder> userOrders = new ArrayList<>();
 }

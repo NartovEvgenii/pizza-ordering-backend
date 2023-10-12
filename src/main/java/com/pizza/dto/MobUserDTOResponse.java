@@ -20,7 +20,7 @@ public class MobUserDTOResponse {
     @JsonProperty("address")
     private AddressDTO addressDTO;
     @JsonProperty("addresses")
-    private List<AddressDTO> addressDTOSs;
+    private List<AddressDTO> addressDTOs;
 
 
 }

@@ -1,7 +1,6 @@
 package com.pizza.service.impl;
 
-import com.pizza.domains.Pizza;
-import com.pizza.dto.PizzaDto;
+import com.pizza.dto.PizzaDTO;
 import com.pizza.mapper.PizzaMapper;
 import com.pizza.repository.PizzaRepository;
 import com.pizza.service.PizzaService;
@@ -18,7 +17,7 @@ public class PizzaServiceImpl implements PizzaService {
     @Autowired
     private PizzaMapper pizzaMapper;
 
-    public List<PizzaDto> getAllPizzas(){
+    public List<PizzaDTO> getAllPizzas(){
         return pizzaRepository.findAll().stream()
                 .map(pizzaMapper::mapPizzaToPizzaDTO)
                 .collect(Collectors.toList());

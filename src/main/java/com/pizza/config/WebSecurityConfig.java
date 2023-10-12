@@ -2,7 +2,6 @@ package com.pizza.config;
 
 import com.pizza.utils.JwtAuthenticationEntryPoint;
 import com.pizza.utils.JwtRequestFilter;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

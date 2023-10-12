@@ -1,10 +1,10 @@
 package com.pizza.service;
 
-import com.pizza.dto.PizzaDto;
+import com.pizza.dto.PizzaDTO;
 
 import java.util.List;
 
 public interface PizzaService {
 
-    List<PizzaDto> getAllPizzas();
+    List<PizzaDTO> getAllPizzas();
 }

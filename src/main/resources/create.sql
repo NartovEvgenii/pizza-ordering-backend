@@ -21,10 +21,22 @@ CREATE TABLE IF NOT EXISTS public.pizza
 
 CREATE TABLE IF NOT EXISTS public.order_state
 (
-    id_order_state bigint NOT NULL,
+    id_order_state SERIAL NOT NULL,
     title character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    identifier character varying(255) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT order_state_pkey PRIMARY KEY (id_order_state),
-    CONSTRAINT uk_3rmbx4jg4canq7lc35dm8x1ai UNIQUE (title)
+    CONSTRAINT uk_3rmbx4jg4canq7lc35dm8x1ai UNIQUE (title),
+    CONSTRAINT uk_lc7w59mt2i33j5jq5ojg5sckw UNIQUE (identifier)
+);
+
+CREATE TABLE IF NOT EXISTS public.payment_type
+(
+    id_payment_type SERIAL NOT NULL,
+    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    identifier character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT payment_type_pkey PRIMARY KEY (id_payment_type),
+    CONSTRAINT uk_bdy39454a77alrbmmoruhnp9b UNIQUE (title),
+    CONSTRAINT uk_lc7w59mt2i33j5jq5ojg5sckg UNIQUE (identifier)
 );
 
 CREATE TABLE IF NOT EXISTS public.mobile_user
@@ -52,14 +64,18 @@ CREATE TABLE IF NOT EXISTS public.user_order
     fk_address bigint,
     fk_user bigint,
     fk_order_state bigint,
+    fk_payment_type bigint,
     CONSTRAINT user_order_pkey PRIMARY KEY (id_order),
-    CONSTRAINT uk_f0rn8d9bgo27v27kw2483f4nd UNIQUE (full_price),
     CONSTRAINT fkapd8cccj3poqb6hio8h4x5cpc FOREIGN KEY (fk_address)
         REFERENCES public.address (id_address) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fkbes4vrr7lt40q54ggy5ydtagp FOREIGN KEY (fk_user)
         REFERENCES public.mobile_user (id_user) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkgtg6gixibhmi9t9srgg79wmh FOREIGN KEY (fk_payment_type)
+        REFERENCES public.payment_type (id_payment_type) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fkkpj1oukb3dadjk0s8f6wgwx3q FOREIGN KEY (fk_order_state)
