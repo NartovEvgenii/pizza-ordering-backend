@@ -3,8 +3,7 @@ package com.pizza.domains;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "user_order")
@@ -36,6 +35,19 @@ public class UserOrder {
     @JoinColumn(name = "fk_user")
     private MobUser mobUser;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private Set<OrderItem> orderItems = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserOrder userOrder = (UserOrder) o;
+        return Objects.equals(idOrder, userOrder.idOrder) && Objects.equals(fullPrice, userOrder.fullPrice) && Objects.equals(orderState, userOrder.orderState) && Objects.equals(paymentType, userOrder.paymentType) && Objects.equals(address, userOrder.address) && Objects.equals(mobUser, userOrder.mobUser) && Objects.equals(orderItems, userOrder.orderItems);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idOrder, fullPrice, orderState, paymentType, address, mobUser, orderItems);
+    }
 }

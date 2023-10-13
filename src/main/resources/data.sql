@@ -2,6 +2,7 @@ TRUNCATE pizza CASCADE;
 TRUNCATE address CASCADE;
 TRUNCATE order_state CASCADE;
 TRUNCATE payment_type CASCADE;
+TRUNCATE user_order CASCADE;
 
 INSERT INTO pizza (id_pizza, title, description, price, image_path) VALUES
             (1, 'Margarita', 'Medium | Cheese , onion, and tomato pure', 12, 'margarita.png'),

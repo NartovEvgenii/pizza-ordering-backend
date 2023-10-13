@@ -7,6 +7,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
@@ -16,4 +18,6 @@ public interface UserOrderMapper {
     @Mapping(source = "userOrder.orderState.title", target = "orderState")
     @Mapping(source = "userOrder.paymentType.title", target = "paymentType")
     UserOrderDTO mapUserOrderToDTO(UserOrder userOrder);
+
+    List<UserOrderDTO> mapUserOrdersToDTOs(List<UserOrder> userOrders);
 }

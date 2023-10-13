@@ -15,4 +15,6 @@ public interface OrderItemMapper {
 
     @Mapping(source = "orderItem.pizza.idPizza", target = "idPizza")
     OrderItemDTO mapOrderItemToDTO(OrderItem orderItem);
+    @Mapping(target = "idOrderItem", ignore = true)
+    OrderItem mapNewDTOToOrderItem(OrderItemDTO orderItemDTO);
 }

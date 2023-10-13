@@ -1,6 +1,8 @@
 package com.pizza.domains;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "order_state")
 @Data
+@NoArgsConstructor
 public class OrderState {
 
     @Id
@@ -24,4 +27,11 @@ public class OrderState {
 
     @OneToMany(mappedBy = "orderState")
     private List<UserOrder> userOrders = new ArrayList<>();
+
+    @Builder
+    private OrderState(Long idOrderState, String title, String identifier) {
+        this.idOrderState = idOrderState;
+        this.title = title;
+        this.identifier = identifier;
+    }
 }
