@@ -1,15 +1,19 @@
 package com.pizza.domains;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "address")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Address {
 
@@ -32,5 +36,18 @@ public class Address {
 
     public Address(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(idAddress, address.idAddress) && Objects.equals(title, address.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idAddress, title);
     }
 }

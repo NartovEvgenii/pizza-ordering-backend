@@ -8,15 +8,29 @@ CREATE TABLE IF NOT EXISTS public.address
     CONSTRAINT uk_djsxpygkfpmu6otj9yxi4e3fs UNIQUE (title)
 );
 
+CREATE TABLE IF NOT EXISTS public.cooking_plan
+(
+    id_cooking_plan SERIAL NOT NULL,
+    base_preparation_time interval NOT NULL,
+    oven_time interval NOT NULL,
+    packing_time interval NOT NULL,
+    CONSTRAINT cooking_plan_pkey PRIMARY KEY (id_cooking_plan)
+);
+
 CREATE TABLE IF NOT EXISTS public.pizza
 (
-    id_pizza bigint NOT NULL,
+    id_pizza SERIAL NOT NULL,
     description character varying(255) COLLATE pg_catalog."default" NOT NULL,
     image_path character varying(255) COLLATE pg_catalog."default",
     price double precision NOT NULL,
     title character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    fk_cooking_plan bigint,
     CONSTRAINT pizza_pkey PRIMARY KEY (id_pizza),
-    CONSTRAINT uk_41lohxyifiupny7tm23i5mlx0 UNIQUE (title)
+    CONSTRAINT uk_41lohxyifiupny7tm23i5mlx0 UNIQUE (title),
+    CONSTRAINT fk4orf29v3ic249eixt5nlumej3 FOREIGN KEY (fk_cooking_plan)
+        REFERENCES public.cooking_plan (id_cooking_plan) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS public.order_state
@@ -41,7 +55,7 @@ CREATE TABLE IF NOT EXISTS public.payment_type
 
 CREATE TABLE IF NOT EXISTS public.mobile_user
 (
-    id_user bigint NOT NULL,
+    id_user SERIAL NOT NULL,
     email character varying(255) COLLATE pg_catalog."default" NOT NULL,
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     password character varying(255) COLLATE pg_catalog."default" NOT NULL,
@@ -104,7 +118,24 @@ CREATE TABLE IF NOT EXISTS public.order_item
         ON DELETE NO ACTION
 );
 
+CREATE SEQUENCE IF NOT EXISTS or_hist_id_or_hist_seq START 1;
 
+CREATE TABLE IF NOT EXISTS public.user_order_history
+(
+    id_order_history bigint NOT NULL DEFAULT nextval('or_hist_id_or_hist_seq'::regclass),
+    change_time timestamp without time zone,
+    fk_order_state bigint,
+    fk_user_order bigint,
+    CONSTRAINT user_order_history_pkey PRIMARY KEY (id_order_history),
+    CONSTRAINT fk5a2r8601ujrikwwdkwqb20aec FOREIGN KEY (fk_user_order)
+        REFERENCES public.user_order (id_order) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fkqts7jog0ofdrxobn5jg7t39v2 FOREIGN KEY (fk_order_state)
+        REFERENCES public.order_state (id_order_state) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
 
 CREATE TABLE IF NOT EXISTS public.user_has_address
 (

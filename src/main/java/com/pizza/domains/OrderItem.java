@@ -39,7 +39,8 @@ public class OrderItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderItem orderItem = (OrderItem) o;
-        return Objects.equals(price, orderItem.price)
+        return Objects.equals(idOrderItem, orderItem.idOrderItem)
+                && Objects.equals(price, orderItem.price)
                 && Objects.equals(countItems, orderItem.countItems)
                 && Objects.equals(pizza, orderItem.pizza)
                 && Objects.equals( order == null ? null : order.getIdOrder(),
@@ -48,6 +49,6 @@ public class OrderItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(price, countItems, pizza, order == null ? null : order.getIdOrder());
+        return Objects.hash(idOrderItem, price, countItems, pizza, order == null ? null : order.getIdOrder());
     }
 }

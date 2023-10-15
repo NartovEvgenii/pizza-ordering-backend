@@ -17,6 +17,7 @@ import java.util.List;
 public interface UserOrderMapper {
     @Mapping(source = "userOrder.orderState.title", target = "orderState")
     @Mapping(source = "userOrder.paymentType.title", target = "paymentType")
+    @Mapping(source = "userOrder.mobUser.idUser", target = "idMobUser")
     UserOrderDTO mapUserOrderToDTO(UserOrder userOrder);
 
     List<UserOrderDTO> mapUserOrdersToDTOs(List<UserOrder> userOrders);

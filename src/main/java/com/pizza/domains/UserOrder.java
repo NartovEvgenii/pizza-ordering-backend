@@ -1,13 +1,19 @@
 package com.pizza.domains;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_order")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserOrder {
 
     @Id
@@ -19,7 +25,7 @@ public class UserOrder {
     @Column(name = "full_price", nullable = false)
     private Double fullPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_order_state")
     private OrderState orderState;
 
@@ -38,6 +44,9 @@ public class UserOrder {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private Set<OrderItem> orderItems = new HashSet<>();
 
+    @OneToMany(mappedBy = "userOrder")
+    private Set<UserOrderHistory> userOrderHistories = new HashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,6 +57,8 @@ public class UserOrder {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrder, fullPrice, orderState, paymentType, address, mobUser, orderItems);
+        return (idOrder != null) ?
+                Objects.hash(idOrder)
+                : Objects.hash(idOrder, fullPrice, orderState, paymentType, address, mobUser, orderItems);
     }
 }

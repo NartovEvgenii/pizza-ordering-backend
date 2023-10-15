@@ -1,6 +1,7 @@
 package com.pizza.service.impl;
 
 import com.pizza.domains.OrderItem;
+import com.pizza.domains.OrderState;
 import com.pizza.domains.UserOrder;
 import com.pizza.dto.OrderItemDTO;
 import com.pizza.dto.UserOrderDTO;
@@ -18,9 +19,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.pizza.utils.ServiceConstant.PROCESSED_IDENT;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +51,13 @@ public class UserOrderServiceImpl implements UserOrderService {
     public List<UserOrderDTO> getUserOrdersByUser(Long idUser) {
         List<UserOrder> userOrderList = userOrderRepository.findByMobUserId(idUser);
         return userOrderMapper.mapUserOrdersToDTOs(userOrderList);
+    }
+
+    @Override
+    public Set<UserOrder> getUserOrdersByOrderStateIdent(String orderStateIdent) {
+        OrderState orderState = orderStateService.getOrderStateByIdentifier(orderStateIdent);
+        Set<UserOrder> userOrderList = userOrderRepository.findByOrderState(orderState.getIdOrderState());
+        return userOrderList;
     }
 
     private UserOrder createNewUserOrder(UserOrderDTORequest userOrderDTORequest) {
